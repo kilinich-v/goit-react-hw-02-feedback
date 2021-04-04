@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import Statistics from './Statistics'
+import FeedbackOptions from './FeedbackOptions'
 import styles from './styles.module.scss'
 
 export default class Feadback extends Component {
@@ -11,22 +12,19 @@ export default class Feadback extends Component {
 
     handleFeadback = event => {
         const { name } = event.currentTarget;
-
         this.setState(prevState => {
             return { [name]: prevState[name] + 1 };
         })
     }
 
     render() {
-        const { feadback, title, buttons, button } = styles;
+        const { feadback, title, buttons } = styles;
 
         return (
             <div className={feadback}>
                 <h2 className={title}>Please leave feedback</h2>
                 <div className={buttons}>
-                    <button name="good" className={button} onClick={this.handleFeadback}>Good</button>
-                    <button name="neutral" className={button} onClick={this.handleFeadback}>Neutral</button>
-                    <button name="bad" className={button} onClick={this.handleFeadback}>Bad</button>
+                    <FeedbackOptions options={Object.keys(this.state)} handleFeadback={this.handleFeadback} />
                 </div>
                 <Statistics state={this.state} styles={styles} />
             </div>
